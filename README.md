@@ -1,10 +1,8 @@
-# Dual-Branch Inpainting
+# SFDI-Net
 
-This package is a cleaned and reorganized copy of the dual-branch inpainting
-workflow. The code is grouped by responsibility and prepared as a minimal
-`train + infer` project.
+This repository contains the training and inference code for SFDI-Net.
 
-## Project Layout
+## Layout
 
 ```text
 dual_branch_inpainting/
@@ -22,22 +20,22 @@ dual_branch_inpainting/
 │   ├── factory.py
 │   └── workflow.py
 ├── notebooks/
-│   └── dual_branch_workflow.ipynb
+│   └── sfdi_net_workflow.ipynb
 ├── outputs/
 ├── requirements.txt
 └── README.md
 ```
 
-## Package Structure
+## Main Files
 
-- `dual_branch_inpainting/models/`: generator, discriminator, and PConv building blocks
-- `dual_branch_inpainting/losses/`: adversarial and inpainting losses
-- `dual_branch_inpainting/data/`: datasets and synthetic mask generation
-- `dual_branch_inpainting/workflow.py`: train and infer entry functions
-- `dual_branch_inpainting/cli/`: command-line wrappers
-- `notebooks/`: interactive workflow notebook
+- `dual_branch_inpainting/models/`: network modules
+- `dual_branch_inpainting/losses/`: reconstruction and adversarial losses
+- `dual_branch_inpainting/data/`: paired dataset loading and synthetic mask generation
+- `dual_branch_inpainting/workflow.py`: training and inference pipeline
+- `dual_branch_inpainting/cli/`: command-line entry points
+- `notebooks/sfdi_net_workflow.ipynb`: notebook workflow
 
-## Setup
+## Environment
 
 ```bash
 cd dual_branch_inpainting
@@ -46,57 +44,53 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-If your `torch` build is managed separately, install `torch` and `torchvision`
-first, then install the remaining packages from `requirements.txt`.
+Install the appropriate `torch` and `torchvision` build for your machine before
+installing the remaining dependencies if needed.
 
-## Data Preparation
+## Data
 
-Put your data into these folders:
+Prepare these directories under `data/`:
 
-- `data/train_images_with_gaps/`: paired training images with missing regions
-- `data/train_masks/`: masks for `train_images_with_gaps`, named `xxx_mask.png`
-- `data/test_images/`: inference input images
-- `data/test_masks/`: inference masks, named `xxx_mask.png`
+- `train_images_with_gaps/`
+- `train_masks/`
+- `test_images/`
+- `test_masks/`
 
-Training uses paired image-mask data only. The package no longer includes the
-previous complete-image training path or the old full-image evaluation path.
-
-The packaged defaults point to these relative paths, so there are no machine-
-specific `/home/...` dependencies left in the code.
+Training uses paired image-mask data. Mask filenames should follow the
+`xxx_mask.png` convention.
 
 ## Usage
 
 Notebook:
 
 ```bash
-jupyter notebook notebooks/dual_branch_workflow.ipynb
+jupyter notebook notebooks/sfdi_net_workflow.ipynb
 ```
 
-CLI training:
+Training:
 
 ```bash
 python -m dual_branch_inpainting.cli.train --device-index 0
 ```
 
-CLI inference:
+Inference:
 
 ```bash
-python -m dual_branch_inpainting.cli.infer --device-index 0 --checkpoint-path outputs/full_model/checkpoints/latest.pt
+python -m dual_branch_inpainting.cli.infer --device-index 0 --checkpoint-path outputs/sfdi_net/checkpoints/latest.pt
 ```
 
-Useful training override example:
+Example with explicit paths:
 
 ```bash
 python -m dual_branch_inpainting.cli.train \
   --images-dir data/train_images_with_gaps \
   --masks-dir data/train_masks \
-  --output-root outputs/full_model
+  --output-root outputs/sfdi_net
 ```
 
 ## Notes
 
-- `outputs/` stores checkpoints, logs, and inference images.
-- Training starts from scratch by default because no pretrained checkpoint is
-  bundled with this package.
+- `outputs/` stores checkpoints, logs, and inference results.
+- Training starts from scratch unless `--pretrained-unet-path` is provided.
 - `dual_branch_inpainting/losses/inpainting.py` uses VGG16 perceptual features
-  via `torchvision`; the first run may require cached pretrained weights.
+  through `torchvision`.
