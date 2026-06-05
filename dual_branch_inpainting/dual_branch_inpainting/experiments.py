@@ -1,0 +1,4 @@
+DEFAULT_FSJ_LEVELS = (1, 2, 3, 4)
+
+MAIN_EXPERIMENT_KEY = "full_model"
+MAIN_EXPERIMENT_TITLE = "Full Model"
