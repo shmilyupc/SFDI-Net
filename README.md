@@ -33,7 +33,7 @@ dual_branch_inpainting/
 - `dual_branch_inpainting/data/`: paired dataset loading and synthetic mask generation
 - `dual_branch_inpainting/workflow.py`: training and inference pipeline
 - `dual_branch_inpainting/cli/`: command-line entry points
-- `notebooks/sfdi_net_workflow.ipynb`: notebook workflow
+- `notebooks/sfdi_net_workflow.ipynb`: notebook workflow. You can use this Jupyter notebook to quickly get started with training and testing.
 
 ## Environment
 
