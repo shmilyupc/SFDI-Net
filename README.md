@@ -19,6 +19,9 @@ dual_branch_inpainting/
 │   ├── experiments.py
 │   ├── factory.py
 │   └── workflow.py
+├── example/
+│   ├── input.png
+│   └── input_mask.png
 ├── notebooks/
 │   └── sfdi_net_workflow.ipynb
 ├── outputs/
