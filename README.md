@@ -97,3 +97,7 @@ python -m dual_branch_inpainting.cli.train \
 - Training starts from scratch unless `--pretrained-unet-path` is provided.
 - `dual_branch_inpainting/losses/inpainting.py` uses VGG16 perceptual features
   through `torchvision`.
+
+## Acknowledgments
+
+Data preprocessing techniques were inspired by [borehole-image-analysis-with-python](https://github.com/ICWallis/borehole-image-analysis-with-python) by ICWallis.
