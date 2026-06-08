@@ -100,4 +100,4 @@ python -m dual_branch_inpainting.cli.train \
 
 ## Acknowledgments
 
-The DLIS to FMI data extraction and preprocessing workflow was inspired by [borehole-image-analysis-with-python](https://github.com/ICWallis/borehole-image-analysis-with-python) by ICWallis.
+The workflow for extracting FMI data from DLIS files was inspired by [borehole-image-analysis-with-python](https://github.com/ICWallis/borehole-image-analysis-with-python) by ICWallis.
